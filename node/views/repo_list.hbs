@@ -1,32 +1,32 @@
-<form
-  target="_blank"
-  method="POST"
-  action="/fetch_all"
->
-  <button type="submit">Sync all repos from origin</button>
+<form target="_blank" method="POST" action="/fetch_all">
+  <button type="submit" class="border px-2 rounded-lg">
+    Sync all repos from origin
+  </button>
 </form>
 
-<h2>
-  Repositories
-  <span>
-    {{#eq order_by 'name'}}
-      (<a href="?">order by last updated</a>)
-    {{else}}
-      (<a href="?by-name=yep">order by name</a>)
-    {{/eq}}
-  </span>
-</h2>
-<ul class="repolist">
+<div class="mb-5 mt-8">
+  <h2 class="text-lg font-semibold">Repositories</h2>
+  {{#eq order_by 'name'}}
+  <a href="?" class="text-sm">order by last updated</a>
+  {{else}}
+  <a href="?by-name=yep" class="text-sm">order by name</a>
+  {{/eq}}
+</div>
+
+<ul>
   {{#each items as |item|}}
-    <li>
-      <a
-        href="/{{ repo_name item.repo }}"
-      >
-        <div class="name">{{ repo_name item.repo }}</div>
-        <div class="last-updated">
-          last updated {{ dateUTC (call item.commit "date") }}
-        </div>
-      </a>
-    </li>
+  <li>
+    <a
+      href="/{{ repo_name item.repo }}"
+      class="mb-3 block border rounded px-3 py-2 hover:bg-gray-50"
+    >
+      <div class="underline text-blue-500 text-lg font-semibold">
+        {{ repo_name item.repo }}
+      </div>
+      <div class="text-sm text-gray-600">
+        last updated {{ dateUTC (call item.commit "date") }}
+      </div>
+    </a>
+  </li>
   {{/each}}
 </ul>
