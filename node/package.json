@@ -4,7 +4,7 @@
   "description": "",
   "main": "klaus.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:tailwind": "tailwindcss build global.css -o ../klaus/static/output.css"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +20,8 @@
     "highlight.js": "^10.3.1",
     "luxon": "^1.25.0",
     "nodegit": "^0.27.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^1.9.6"
   }
 }
