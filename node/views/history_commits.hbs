@@ -1,25 +1,16 @@
-<div class="dummy"></div>
-
-<div class="history">
-  <h2>
+<div class="container mx-auto">
+  <h1 class="text-xl font-semibold mb-4">
     Commit History
-  </h2>
-  <ul>
+  </h1>
+  <ul class="space-y-2">
   {{#each commits}}
     <li>
-      <a class="commit" href="/{{ ../context.repoName }}/commit/{{ this }}">
-        <span class="line1">
-          <span>{{ shorten_message (call this "message") }}</span>
-        </span>
-        <span class="line2">
-          <span>
-            {{ call this "author" }}
-          </span>
-          <span title="{{ call this "date" }}">
-            {{ dateUTC (call this "date") }}
-          </span>
-        </span>
-        <span class="clearfloat"></span>
+      <a class="text-sm border rounded-lg p-2 flex flex-col space-y-1 shadow-none ease-in-out transition-shadow duration-200 hover:shadow-lg" href="/{{ ../context.repoName }}/commit/{{ this }}">
+        <div class="flex justify-between text-gray-500">
+          <p>{{ call this "author" }}</p>
+          <p>{{ dateUTC (call this "date") }}</p>
+        </div>
+        <p class="font-mono">{{ shorten_message (call this "message") }}</p>
       </a>
     </li>
   {{/each}}

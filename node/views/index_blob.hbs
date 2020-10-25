@@ -1,55 +1,44 @@
-<div class="dummy"></div>
 
-<div>
+<div class="container mx-auto mb-8">
   {{> last_commit commitLast=commitLast}}
 
-  <div class="blobview">
-    <h2>
-      {{ context.path }}
-      <span>
-        <a href="/{{ context.repoName }}/raw/{{ context.rev }}/{{ context.path }}">
-          raw
+    <div class="flex items-center p-3 border text-sm text-gray-700">
+      <a class="flex items-center hover:underline mr-4" href="/{{ context.repoName }}/raw/{{ context.rev }}/{{ context.path }}">
+        <svg class="mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--carbon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style="transform: rotate(360deg);"><path d="M31 16l-7 7l-1.41-1.41L28.17 16l-5.58-5.59L24 9l7 7z" fill="currentColor"></path><path d="M1 16l7-7l1.41 1.41L3.83 16l5.58 5.59L8 23l-7-7z" fill="currentColor"></path><path d="M12.419 25.484L17.639 6l1.932.518L14.35 26z" fill="currentColor"></path></svg>
+        raw
+      </a>
+      <a class="flex items-center hover:underline mr-4" href="/{{ context.repoName }}/commits/{{ context.rev }}/{{ context.path }}">
+        <svg class="mr-1.5 text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--la" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style="transform: rotate(360deg);"><path d="M16 4C9.383 4 4 9.383 4 16s5.383 12 12 12s12-5.383 12-12S22.617 4 16 4zm0 2c5.535 0 10 4.465 10 10s-4.465 10-10 10S6 21.535 6 16S10.465 6 16 6zm-1 2v9h7v-2h-5V8z" fill="currentColor"></path></svg>
+        history
+      </a>
+      {{#if (and (not context.isBinary true) (not context.isTooLarge true)) }}
+        <a class="flex items-center hover:underline" href="/{{ context.repoName }}/blame/{{ context.rev }}/{{ context.path }}">
+          <svg class="mr-1.5 text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--carbon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style="transform: rotate(360deg);"><path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12a12 12 0 0 1-12 12z" fill="currentColor"></path><path d="M11.5 11a2.5 2.5 0 1 0 2.5 2.5a2.48 2.48 0 0 0-2.5-2.5z" fill="currentColor"></path><path d="M20.5 11a2.5 2.5 0 1 0 2.5 2.5a2.48 2.48 0 0 0-2.5-2.5z" fill="currentColor"></path></svg>
+          blame
         </a>
-        &middot;
-        <a href="/{{ context.repoName }}/commits/{{ context.rev }}/{{ context.path }}">
-          history
-        </a>
-        {{#if (and (not context.isBinary true) (not context.isTooLarge true)) }}
-          &middot;
-          <a href="/{{ context.repoName }}/blame/{{ context.rev }}/{{ context.path }}">
-            blame
-          </a>
-        {{/if}}
-      </span>
-    </h2>
-    <div class="details">
-      File size: {{ prettyNumber (call context.blob "rawsize") }} Bytes
+      {{/if}}
+      <div class="ml-auto">
+        {{ prettyNumber (call context.blob "rawsize") }} Bytes
+      </div>
     </div>
-    
+
     {{#if context.isBinary}}
       Binary data
     {{else if context.isTooLarge}}
       File is too large
     {{else}}
-      <div
-        style="border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px 20px;"
+      <div class="border border-t-0 rounded-b-lg"
       >
         <table>
           <tr>
-            <td style="vertical-align: top;">
-              <pre
-                style="
-                  background-color: #f9f9f9; text-align: right; padding-right: 6px;
-                  border-right: 1px solid #e4e4e4; margin-right: 4px;"
-              >{{ context.data.line_gutter }}</pre>
+            <td class="align-top select-none">
+              <pre class="p-3 text-sm">{{ context.data.line_gutter }}</pre>
             </td>
-            <td style="vertical-align: top;">
-              <pre><code>{{{ context.data.code }}}</code></pre>
+            <td class="align-top">
+              <pre class="p-3 text-sm"><code>{{{ context.data.code }}}</code></pre>
             </td>
           </tr>
         </table>
       </div>
     {{/if}}
-    
-  </div>
 </div>
