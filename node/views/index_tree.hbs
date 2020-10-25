@@ -1,77 +1,48 @@
-<div class="dummy"></div>
+<div class="container mx-auto">
+  <div class="flex justify-between mb-6 items-center">
+      <a class="flex items-center border px-1.5 py-0.5 rounded bg-gradient-to-b from-white to-gray-100"
+        href="/{{ context.repoName }}/commit/{{ context.rev }}"
+      >
+        <svg class="mx-1 text-gray-700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--mdi" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M13 14c-3.36 0-4.46 1.35-4.82 2.24C9.25 16.7 10 17.76 10 19a3 3 0 0 1-3 3a3 3 0 0 1-3-3c0-1.31.83-2.42 2-2.83V7.83A2.99 2.99 0 0 1 4 5a3 3 0 0 1 3-3a3 3 0 0 1 3 3c0 1.31-.83 2.42-2 2.83v5.29c.88-.65 2.16-1.12 4-1.12c2.67 0 3.56-1.34 3.85-2.23A3.006 3.006 0 0 1 14 7a3 3 0 0 1 3-3a3 3 0 0 1 3 3c0 1.34-.88 2.5-2.09 2.86C17.65 11.29 16.68 14 13 14m-6 4a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M7 4a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m10 2a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1z" fill="currentColor"></path></svg>
+        {{ shorten_sha1 context.rev }}
+        <svg class="text-gray-500 ml-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--ic" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M7 10l5 5l5-5z" fill="currentColor"></path></svg>
+      </a>
 
-<div class="tree">
-  <h2>
-    Tree @
-    <a
-      href="/{{ context.repoName }}/commit/{{ context.rev }}"
-    >
-      {{ shorten_sha1 context.rev }}
-    </a>
-  </h2>
-  <div class="link-history clearfloat">
-    <a
-      href="/{{ context.repoName }}/commits/{{ context.rev }}/{{ context.path }}"
-      style="float: right; font-weight: bold;"
-    >
       {{#if context.data.historyLink}}
-        {{context.data.historyLink}}
-      {{else}}
-        History
-      {{/if}}
-    </a>
-    <br>
-  </div>
-  
-  {{> last_commit commitLast=commitLast}}
-  
-  <ul>
-    {{#each dirs}}
-      <li>
         <a
-          href="/{{ ../context.repoName }}/tree/{{ ../context.rev }}/{{ path }}"
-          class="dir"
+        class="flex items-center text-gray-500 text-sm hover:underline"
+        href="/{{ context.repoName }}/commits/{{ context.rev }}/{{ context.path }}"
         >
+            <svg class="text-gray-500 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--la" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style="transform: rotate(360deg);"><path d="M16 4C9.383 4 4 9.383 4 16s5.383 12 12 12s12-5.383 12-12S22.617 4 16 4zm0 2c5.535 0 10 4.465 10 10s-4.465 10-10 10S6 21.535 6 16S10.465 6 16 6zm-1 2v9h7v-2h-5V8z" fill="currentColor"></path></svg>
+            {{context.data.historyLink}}
+        </a>
+      {{/if}}
+  </div>
+
+  {{> last_commit commitLast=commitLast}}
+
+  <ul class="border border-t-0 rounded-b-lg mb-10">
+    {{#each dirs}}
+      <li class="grid grid-cols-12 px-3 place-content-center text-sm h-10 border-t gap-x-3">
+        <a class="col-span-3 truncate flex items-center hover:underline" href="/{{ ../context.repoName }}/tree/{{ ../context.rev }}/{{ path }}">
+          <svg class="flex-none mr-2 text-blue-400 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--mdi" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2z" fill="currentColor"></path></svg>
           {{ name }}
         </a>
-        {{#if lastCommit}}
-          <a
-            href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}"
-            style="display: inline; padding-left: 60px;"
-          >
-            {{ shorten_message (call lastCommit "message") }}
-          </a>
-          <a
-            href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}"
-            style="display: inline; float: right;"
-          >
-            {{ fromNow (call lastCommit "date") }}
-          </a>
-        {{/if}}
+        <a class="col-span-7 font-mono truncate text-gray-400 hover:underline" href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}">{{ shorten_message (call lastCommit "message") }}</a>
+        <a class="col-span-2 text-right truncate text-gray-400" href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}">{{ fromNow (call lastCommit "date") }}</a>
       </li>
     {{/each}}
+
     {{#each files}}
-      <li>
-        <a
-          href="/{{ ../context.repoName }}/blob/{{ ../context.rev }}/{{ path }}"
-        >
+      <li class="grid grid-cols-12 px-3 place-content-center text-sm h-10 border-t gap-x-3">
+        <a class="col-span-3 truncate flex items-center hover:underline" href="/{{ ../context.repoName }}/blob/{{ ../context.rev }}/{{ path }}">
+          <svg class="flex-none mr-2 text-gray-700 fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--carbon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style="transform: rotate(360deg);"><path d="M25.7 9.3l-7-7A.908.908 0 0 0 18 2H8a2.006 2.006 0 0 0-2 2v24a2.006 2.006 0 0 0 2 2h16a2.006 2.006 0 0 0 2-2V10a.908.908 0 0 0-.3-.7zM18 4.4l5.6 5.6H18zM24 28H8V4h8v6a2.006 2.006 0 0 0 2 2h6z" fill="currentColor"></path></svg>
           {{ name }}
         </a>
-        {{#if lastCommit}}
-          <a
-            href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}"
-            style="display: inline; padding-left: 60px;"
-          >
-            {{ shorten_message (call lastCommit "message") }}
-          </a>
-          <a
-            href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}"
-            style="display: inline; float: right;"
-          >
-            {{ fromNow (call lastCommit "date") }}
-          </a>
-        {{/if}}
+        <a class="col-span-7 font-mono truncate text-gray-400 hover:underline" href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}">{{ shorten_message (call lastCommit "message") }}</a>
+        <a class="col-span-2 text-right truncate text-gray-400" href="/{{ ../context.repoName }}/commit/{{ call lastCommit "id" }}">{{ fromNow (call lastCommit "date") }}</a>
       </li>
     {{/each}}
   </ul>
 </div>
+

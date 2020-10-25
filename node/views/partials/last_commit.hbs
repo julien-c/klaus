@@ -1,4 +1,19 @@
-<div
+<div class="leading-none text-sm border border-b-0 px-3 h-12 flex items-center rounded-t-lg bg-gradient-to-b from-white to-gray-50">
+  {{#if commitLast}}
+    <a class="mr-2 lg:mr-4 truncate" href="#">{{ call commitLast "author" }}</a>
+    <a class="font-mono text-gray-500 truncate hover:underline" href="/{{ context.repoName }}/commit/{{ call commitLast "id"}}">
+      {{ call commitLast "message" }}
+    </a>
+    <a class="ml-2 lg:ml-4 border px-1 py-0.5 lg:ml-2 rounded bg-gray-50 hover:underline" href="/{{ context.repoName }}/commit/{{ call commitLast "id"}}">{{ shorten_sha1 (call commitLast "id") }}</a>
+    <p title="{{ call commitLast "date" }}" class="ml-auto hidden lg:block text-gray-500 truncate">
+      {{ fromNow (call commitLast "date") }}
+    </p>
+  {{else}}
+    Last commit not found
+  {{/if}}
+</div>
+
+<!-- <div
   class="last-commit"
 >
   {{#if commitLast}}
@@ -19,4 +34,4 @@
   {{else}}
     Last commit not found
   {{/if}}
-</div>
+</div> -->

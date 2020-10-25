@@ -1,15 +1,18 @@
 <form target="_blank" method="POST" action="/fetch_all">
-  <button type="submit" class="border px-2 rounded-lg">
+  <button
+    type="submit"
+    class="border px-3 text-sm font-medium py-1 rounded-lg bg-gradient-to-b from-white to-gray-100 hover:to-gray-200 focus:outline-none focus:shadow-outline"
+  >
     Sync all repos from origin
   </button>
 </form>
 
-<div class="mb-5 mt-8">
-  <h2 class="text-lg font-semibold">Repositories</h2>
+<div class="my-6">
+  <h2 class="text-2xl font-semibold">Repositories</h2>
   {{#eq order_by 'name'}}
-  <a href="?" class="text-sm">order by last updated</a>
+  <a href="?" class="text-sm underline">order by last updated</a>
   {{else}}
-  <a href="?by-name=yep" class="text-sm">order by name</a>
+  <a href="?by-name=yep" class="text-sm underline">order by name</a>
   {{/eq}}
 </div>
 
@@ -18,9 +21,9 @@
   <li>
     <a
       href="/{{ repo_name item.repo }}"
-      class="mb-3 block border rounded px-3 py-2 hover:bg-gray-50"
+      class="mb-3 block border rounded px-3 py-2 shadow-none duration-200 hover:shadow-lg ease-in-out transition-all transform hover:translate-x-1"
     >
-      <div class="underline text-blue-500 text-lg font-semibold">
+      <div class="text-blue-500 text-lg font-semibold">
         {{ repo_name item.repo }}
       </div>
       <div class="text-sm text-gray-600">

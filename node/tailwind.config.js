@@ -7,6 +7,10 @@ module.exports = {
   },
   purge: ["./views/**/*.hbs"],
   theme: {
+    borderColor: (theme) => ({
+      ...theme("colors"),
+      default: theme("colors.gray.200"),
+    }),
     container: {
       padding: {
         default: "1rem",

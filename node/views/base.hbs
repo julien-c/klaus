@@ -15,40 +15,23 @@
 
 <script src="/static/klaus.js"></script>
 
-<header>
-  <a href="/">
-    {{ SITE_NAME }}
-  </a>
-
-  <span class="breadcrumbs">
-    <span>
-      <a href="/{{ context.repoName }}">{{ context.repoName }}</a>
-    </span>
-    {{#if context.subpaths}}
-      <span>
-        {{#each context.subpaths}}
-          {{#if href}}
-            {{#eq ../context.view "commits"}}
-              <a
-                href="/{{ ../context.repoName }}/commits/{{ ../context.rev }}/{{ href }}"
-              >
-                {{dir}}
-              </a>
-            {{else}}
-              <a
-                href="/{{ ../context.repoName }}/tree/{{ ../context.rev }}/{{ href }}"
-              >
-                {{dir}}
-              </a>
-            {{/eq}}
-          {{else}}
-            {{dir}}
-          {{/if}}
-          <span>/</span>
-        {{/each}}
-      </span>
-    {{/if}}
-  </span>
+<header class="container mx-auto pb-4 pt-8 flex items-end font-semibold">
+  <a class="hover:underline" href="/{{ context.repoName }}">{{ context.repoName }}</a>
+  {{#if context.subpaths}}
+    <span class="text-gray-300 mx-1 font-light">/</span>
+    {{#each context.subpaths}}
+      {{#if href}}
+        {{#eq ../context.view "commits"}}
+          <a class="hover:underline font-light" href="/{{ ../context.repoName }}/commits/{{ ../context.rev }}/{{ href }}">{{dir}}</a>
+        {{else}}
+          <a class="hover:underline font-light" href="/{{ ../context.repoName }}/tree/{{ ../context.rev }}/{{ href }}">{{dir}}</a>
+        {{/eq}}
+          <span class="text-gray-300 mx-1">/</span>
+      {{else}}
+        <span class="font-light">{{dir}}</span>
+      {{/if}}
+    {{/each}}
+  {{/if}}
 
   {{#if info.remoteLink}}
     <a
@@ -65,11 +48,6 @@
   {{/unless}}
 </header>
 
-<div id="content">
+<div>
   {{{ body }}}
 </div>
-
-<footer>
-  powered by <a href="https://github.com/jonashaag/klaus">klaus</a> {{ KLAUS_VERSION }},
-  a simple Git viewer by Jonas Haag
-</footer>
