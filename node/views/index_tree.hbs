@@ -1,5 +1,5 @@
 <div class="container mx-auto">
-  <div class="flex justify-between mb-6 items-center">
+  <div class="flex justify-between mb-5 items-center">
       <a class="flex items-center border px-1.5 py-0.5 rounded bg-gradient-to-b from-white to-gray-100 pointer-events-none"
         href="/{{ context.repoName }}/commit/{{ context.rev }}"
       >
@@ -7,6 +7,7 @@
         {{ shorten_sha1 context.rev }}
         <svg class="text-gray-500 ml-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" class="iconify iconify--ic" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M7 10l5 5l5-5z" fill="currentColor"></path></svg>
       </a>
+
       {{#if context.data.historyLink}}
         <a
         class="flex items-center text-gray-500 text-sm hover:underline"
