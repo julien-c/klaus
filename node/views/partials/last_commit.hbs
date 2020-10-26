@@ -5,7 +5,7 @@
       {{ call commitLast "message" }}
     </a>
     <a class="ml-2 lg:ml-4 border px-1 py-0.5 lg:ml-2 rounded bg-gray-50 hover:underline" href="/{{ context.repoName }}/commit/{{ call commitLast "id"}}">{{ shorten_sha1 (call commitLast "id") }}</a>
-    <p title="{{ call commitLast "date" }}" class="ml-auto hidden lg:block text-gray-500 truncate">
+    <p title="{{ call commitLast "date" }}" class="ml-auto hidden lg:block text-gray-500 truncate flex-none pl-2">
       {{ fromNow (call commitLast "date") }}
     </p>
   {{else}}
